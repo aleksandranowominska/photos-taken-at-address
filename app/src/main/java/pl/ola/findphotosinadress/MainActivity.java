@@ -9,8 +9,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import pl.ola.findphotosinadress.api.GoogleMapService;
 import pl.ola.findphotosinadress.location.LocationData;
+import pl.ola.findphotosinadress.places.Place;
 import pl.ola.findphotosinadress.places.PlacesResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
     Button searchButton;
     ListView imagesListView;
 
+    public static List<Place> foundPlaces;
+
     GoogleMapService googleMapService = GoogleMapService.retrofit.create(GoogleMapService.class);
-    PhoosAdapter phoosAdapter;
+    PhotosAdapter photosAdapter;
 
 
     @Override
@@ -36,8 +42,10 @@ public class MainActivity extends AppCompatActivity {
         imagesListView = (ListView) findViewById(R.id.listView);
         View headerView = LayoutInflater.from(this).inflate(R.layout.header, imagesListView, false);
         imagesListView.addHeaderView(headerView);
-        phoosAdapter = new PhoosAdapter();
-        imagesListView.setAdapter(phoosAdapter);
+        photosAdapter = new PhotosAdapter(this);
+        imagesListView.setAdapter(photosAdapter);
+
+        foundPlaces = new ArrayList<Place>();
 
         enterAdressText = (EditText) findViewById(R.id.enterAdress);
         searchButton = (Button) findViewById(R.id.searchButton);
@@ -57,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<LocationData> call, Throwable t) {
-                        Toast.makeText(MainActivity.this, "Something went wrong: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Something is wrong: " + t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -70,13 +78,14 @@ public class MainActivity extends AppCompatActivity {
         googleMapService.nearbySearch(GOOGLE_API_KEY, lat+","+lng, 500).enqueue(new Callback<PlacesResponse>() {
             @Override
             public void onResponse(Call<PlacesResponse> call, Response<PlacesResponse> response) {
-                Toast.makeText(MainActivity.this, "OK " + response.body().results.size(), Toast.LENGTH_LONG).show();
-
+//                Toast.makeText(MainActivity.this, "OK " + response.body().results.size(), Toast.LENGTH_LONG).show();
+                foundPlaces = response.body().results;
+                photosAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<PlacesResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Something went wrong: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Something is wrong: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 

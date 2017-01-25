@@ -25,5 +25,4 @@ public interface GoogleMapService {
     @GET("place/nearbysearch/json")
     Call<PlacesResponse> nearbySearch(@Query("key") String key, @Query("location") String location, @Query("radius") Integer radius);
 
-
 }
