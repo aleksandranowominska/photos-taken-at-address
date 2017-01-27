@@ -51,8 +51,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int row, long id) {
                 Intent intent = new Intent(MainActivity.this, PlaceDetails.class);
-                intent.putExtra(PlaceDetails.EXTRA_PLACES, foundPlaces.get(row));
+                intent.putExtra(PlaceDetails.EXTRA_PLACES, foundPlaces.get(row - 1));
                 startActivity(intent);
+//                Toast.makeText(MainActivity.this, "photo count: " + foundPlaces.get(row-1).photos.size(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -68,9 +69,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<LocationData> call, Response<LocationData> response) {
                         LocationData locationData = response.body();
-                        loadPhotos(locationData.results.get(0).geometry.location.lat, locationData.results.get(0).geometry.location.lng);
+                        if (locationData != null){
+                            loadPhotos(locationData.results.get(0).geometry.location.lat, locationData.results.get(0).geometry.location.lng);}
+                        else {
+                            Toast.makeText(MainActivity.this, "Location not found", Toast.LENGTH_LONG).show();
+                        }
 
-                        enterAdressText.setText(response.body().results.get(0).formattedAddress);
+//                        enterAdressText.setText(response.body().results.get(0).formattedAddress);
                     }
 
                     @Override

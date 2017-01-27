@@ -23,6 +23,7 @@
 
         <TextView
             android:id="@+id/placeRating"
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -36,7 +37,11 @@
         android:id="@+id/placePictures"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/placeType">
+        android:layout_below="@+id/placeType"
+        android:numColumns="auto_fit"
+        android:gravity="center"
+        android:columnWidth="50dp"
+        android:stretchMode="columnWidth">
     </GridView>
 
 </RelativeLayout>

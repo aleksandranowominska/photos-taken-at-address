@@ -1,11 +1,11 @@
 package pl.ola.findphotosinadress;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.widget.GridView;
 import android.widget.TextView;
 
-import pl.ola.findphotosinadress.R;
 import pl.ola.findphotosinadress.places.Place;
 
 public class PlaceDetails extends AppCompatActivity {
@@ -14,7 +14,10 @@ public class PlaceDetails extends AppCompatActivity {
     TextView placeName;
     TextView placeRating;
     TextView placeType;
+    GridView placeImagesGridView;
     Place singlePlace;
+
+    PhotoDetailsGridAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +29,20 @@ public class PlaceDetails extends AppCompatActivity {
         placeName = (TextView) findViewById(R.id.placeName);
         placeRating = (TextView) findViewById(R.id.placeRating);
         placeType = (TextView) findViewById(R.id.placeType);
+        placeImagesGridView = (GridView) findViewById(R.id.placePictures);
 
         placeName.setText(singlePlace.name);
-        placeRating.setText(singlePlace.rating + "");
+        if (singlePlace.rating != null) {
+            placeRating.setText("Rating: " + singlePlace.rating + "");
+        } else {
+            placeRating.setText("");
+        }
 
-        String placeTypes = TextUtils.join("\n",singlePlace.types);
+        String placeTypes = TextUtils.join("\n", singlePlace.types);
         placeType.setText(placeTypes);
+
+        adapter = new PhotoDetailsGridAdapter(this, singlePlace.photos);
+        placeImagesGridView.setAdapter(adapter);
+
     }
 }
