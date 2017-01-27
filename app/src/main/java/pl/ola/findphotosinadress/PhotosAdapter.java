@@ -9,21 +9,24 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import pl.ola.findphotosinadress.places.Photo;
 import pl.ola.findphotosinadress.places.Place;
 
 /**
  * Created by Aleksandra Kusiak on 24.01.2017.
  */
-
 public class PhotosAdapter extends BaseAdapter {
     Context mContext;
     String apiURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400";
+    List<Place> foundPlaces;
 
-
-    public PhotosAdapter(Context mContext) {
+    public PhotosAdapter(Context mContext, List<Place> foundPlaces) {
         this.mContext = mContext;
+        this.foundPlaces = foundPlaces;
     }
+
 
     @Override
     public boolean isEmpty() {
@@ -32,8 +35,8 @@ public class PhotosAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (MainActivity.foundPlaces != null) {
-            return MainActivity.foundPlaces.size();
+        if (foundPlaces != null) {
+            return foundPlaces.size();
         } else {
             return 0;
         }
@@ -53,7 +56,7 @@ public class PhotosAdapter extends BaseAdapter {
     public View getView(int row, View view, ViewGroup viewGroup) {
         if (view == null)
             view = LayoutInflater.from(mContext).inflate(R.layout.image_cell, viewGroup, false);
-        Place place = MainActivity.foundPlaces.get(row);
+        Place place = foundPlaces.get(row);
         if((place != null && place.photos!=null)) {
             String fullURL = apiURL + "&photoreference=" + place.photos.get(0).photoReference + "&key=AIzaSyCBr4aFGcFWaq3AxX8FMu0BdwDh1UrxWmg";
             ImageView downloadedImage = (ImageView) view.findViewById(R.id.downloadedImage);

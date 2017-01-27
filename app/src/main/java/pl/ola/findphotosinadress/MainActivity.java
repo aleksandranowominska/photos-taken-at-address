@@ -1,9 +1,11 @@
 package pl.ola.findphotosinadress;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     Button searchButton;
     ListView imagesListView;
 
-    public static List<Place> foundPlaces;
+    public ArrayList<Place> foundPlaces = new ArrayList<Place>();
 
     GoogleMapService googleMapService = GoogleMapService.retrofit.create(GoogleMapService.class);
     PhotosAdapter photosAdapter;
@@ -42,10 +44,18 @@ public class MainActivity extends AppCompatActivity {
         imagesListView = (ListView) findViewById(R.id.listView);
         View headerView = LayoutInflater.from(this).inflate(R.layout.header, imagesListView, false);
         imagesListView.addHeaderView(headerView);
-        photosAdapter = new PhotosAdapter(this);
-        imagesListView.setAdapter(photosAdapter);
 
-        foundPlaces = new ArrayList<Place>();
+        photosAdapter = new PhotosAdapter(this, foundPlaces);
+        imagesListView.setAdapter(photosAdapter);
+        imagesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int row, long id) {
+                Intent intent = new Intent(MainActivity.this, PlaceDetails.class);
+                intent.putExtra(PlaceDetails.EXTRA_PLACES, foundPlaces.get(row));
+                startActivity(intent);
+            }
+        });
+
 
         enterAdressText = (EditText) findViewById(R.id.enterAdress);
         searchButton = (Button) findViewById(R.id.searchButton);
@@ -54,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String enteredAdress = enterAdressText.getText().toString();
 
-                googleMapService.geocodeAddress(enteredAdress,GOOGLE_API_KEY).enqueue(new Callback<LocationData>() {
+                googleMapService.geocodeAddress(enteredAdress, GOOGLE_API_KEY).enqueue(new Callback<LocationData>() {
                     @Override
                     public void onResponse(Call<LocationData> call, Response<LocationData> response) {
                         LocationData locationData = response.body();
@@ -74,12 +84,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void loadPhotos(Double lat, Double lng){
-        googleMapService.nearbySearch(GOOGLE_API_KEY, lat+","+lng, 500).enqueue(new Callback<PlacesResponse>() {
+    public void loadPhotos(Double lat, Double lng) {
+        googleMapService.nearbySearch(GOOGLE_API_KEY, lat + "," + lng, 500).enqueue(new Callback<PlacesResponse>() {
             @Override
             public void onResponse(Call<PlacesResponse> call, Response<PlacesResponse> response) {
 //                Toast.makeText(MainActivity.this, "OK " + response.body().results.size(), Toast.LENGTH_LONG).show();
-                foundPlaces = response.body().results;
+                List<Place> places = response.body().results;
+                foundPlaces.clear();
+                foundPlaces.addAll(places);
                 photosAdapter.notifyDataSetChanged();
             }
 
