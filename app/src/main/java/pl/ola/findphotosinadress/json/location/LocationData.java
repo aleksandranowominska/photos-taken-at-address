@@ -1,5 +1,5 @@
 
-package pl.ola.findphotosinadress.location;
+package pl.ola.findphotosinadress.json.location;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

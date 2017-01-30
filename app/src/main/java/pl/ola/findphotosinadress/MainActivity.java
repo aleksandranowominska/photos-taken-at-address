@@ -15,16 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.ola.findphotosinadress.api.GoogleMapService;
-import pl.ola.findphotosinadress.location.LocationData;
-import pl.ola.findphotosinadress.places.Place;
-import pl.ola.findphotosinadress.places.PlacesResponse;
+import pl.ola.findphotosinadress.json.location.LocationData;
+import pl.ola.findphotosinadress.json.places.Place;
+import pl.ola.findphotosinadress.json.places.PlacesResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     public static final String GOOGLE_API_KEY = "AIzaSyCBr4aFGcFWaq3AxX8FMu0BdwDh1UrxWmg";
-    //AIzaSyC3IPPF-eb4E0LhktsNWP0umgw9L9lbINY
 
     EditText enterAdressText;
     Button searchButton;
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         imagesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int row, long id) {
-                Intent intent = new Intent(MainActivity.this, PlaceDetails.class);
-                intent.putExtra(PlaceDetails.EXTRA_PLACES, foundPlaces.get(row - 1));
+                Intent intent = new Intent(MainActivity.this, PlaceDetailsActivity.class);
+                intent.putExtra(PlaceDetailsActivity.EXTRA_PLACES, foundPlaces.get(row - 1));
                 startActivity(intent);
 //                Toast.makeText(MainActivity.this, "photo count: " + foundPlaces.get(row-1).photos.size(), Toast.LENGTH_SHORT).show();
             }

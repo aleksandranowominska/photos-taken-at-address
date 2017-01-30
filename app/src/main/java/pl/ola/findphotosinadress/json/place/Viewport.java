@@ -1,5 +1,5 @@
 
-package pl.ola.findphotosinadress.location;
+package pl.ola.findphotosinadress.json.place;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

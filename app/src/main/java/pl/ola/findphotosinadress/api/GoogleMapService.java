@@ -1,7 +1,8 @@
 package pl.ola.findphotosinadress.api;
 
-import pl.ola.findphotosinadress.location.LocationData;
-import pl.ola.findphotosinadress.places.PlacesResponse;
+import pl.ola.findphotosinadress.json.location.LocationData;
+import pl.ola.findphotosinadress.json.place.PlaceDetails;
+import pl.ola.findphotosinadress.json.places.PlacesResponse;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -24,5 +25,8 @@ public interface GoogleMapService {
 
     @GET("place/nearbysearch/json")
     Call<PlacesResponse> nearbySearch(@Query("key") String key, @Query("location") String location, @Query("radius") Integer radius);
+
+    @GET("place/details/json")
+    Call<PlaceDetails> getPlaceDetails(@Query("key") String key, @Query("placeid") String placeID);
 
 }

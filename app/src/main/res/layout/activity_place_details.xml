@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="pl.ola.findphotosinadress.PlaceDetails">
+    tools:context="pl.ola.findphotosinadress.PlaceDetailsActivity">
 
     <LinearLayout
         android:id="@+id/placeNameAndRating"
@@ -40,7 +40,7 @@
         android:layout_below="@+id/placeType"
         android:numColumns="auto_fit"
         android:gravity="center"
-        android:columnWidth="50dp"
+        android:columnWidth="100dp"
         android:stretchMode="columnWidth">
     </GridView>
 

@@ -11,8 +11,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import pl.ola.findphotosinadress.places.Photo;
-import pl.ola.findphotosinadress.places.Place;
+import pl.ola.findphotosinadress.json.places.Place;
 
 /**
  * Created by Aleksandra Kusiak on 24.01.2017.

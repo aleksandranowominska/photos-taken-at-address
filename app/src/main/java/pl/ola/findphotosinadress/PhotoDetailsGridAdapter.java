@@ -11,8 +11,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import pl.ola.findphotosinadress.places.Photo;
-import pl.ola.findphotosinadress.places.Place;
+import pl.ola.findphotosinadress.json.place.Photo;
 
 /**
  * Created by Aleksandra Kusiak on 24.01.2017.
@@ -56,7 +55,6 @@ public class PhotoDetailsGridAdapter extends BaseAdapter {
     public View getView(int row, View view, ViewGroup viewGroup) {
         if (view == null)
             view = LayoutInflater.from(mContext).inflate(R.layout.grid_cell, viewGroup, false);
-
 
         Photo photo = photos.get(row);
         if(photo != null ) {

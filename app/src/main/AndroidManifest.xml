@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlaceDetails"></activity>
+        <activity android:name=".PlaceDetailsActivity"></activity>
     </application>
 
 </manifest>

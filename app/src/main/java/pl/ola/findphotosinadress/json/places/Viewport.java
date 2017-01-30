@@ -1,5 +1,5 @@
 
-package pl.ola.findphotosinadress.places;
+package pl.ola.findphotosinadress.json.places;
 
 import android.os.Parcel;
 import android.os.Parcelable;
