@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<LocationData> call, Response<LocationData> response) {
                         LocationData locationData = response.body();
-                        if (locationData != null){
+                        if (locationData != null && locationData.results.size() > 0){
                             loadPhotos(locationData.results.get(0).geometry.location.lat, locationData.results.get(0).geometry.location.lng);}
                         else {
                             Toast.makeText(MainActivity.this, "Location not found", Toast.LENGTH_LONG).show();

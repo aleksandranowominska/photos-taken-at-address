@@ -33,15 +33,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/placeNameAndRating" />
+
     <GridView
         android:id="@+id/placePictures"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/placeType"
+        android:verticalSpacing="10dp"
         android:numColumns="auto_fit"
         android:gravity="center"
         android:columnWidth="100dp"
-        android:stretchMode="columnWidth">
-    </GridView>
+        android:stretchMode="spacingWidth" />
 
 </RelativeLayout>

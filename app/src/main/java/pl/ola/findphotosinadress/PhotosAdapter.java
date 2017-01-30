@@ -18,7 +18,7 @@ import pl.ola.findphotosinadress.json.places.Place;
  */
 public class PhotosAdapter extends BaseAdapter {
     Context mContext;
-    String apiURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400";
+    String apiURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800";
     List<Place> foundPlaces;
 
     public PhotosAdapter(Context mContext, List<Place> foundPlaces) {
